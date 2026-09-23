@@ -1,0 +1,16 @@
+{
+  "name": "lesson05",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^12.0.2",
+    "chai": "^6.2.2"
+  }
+}
