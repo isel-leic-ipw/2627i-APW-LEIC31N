@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>My Lists</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="/">Shopping List</a>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item">
+            <form method="post" action="/logout" style="display:inline-block">
+              <button class="nav-link btn btn-outline-light btn-sm ms-2" style="border:none">Logout</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container my-5">
+    <div class="row">
+      <div class="col-lg-12 mx-auto">
+        <div class="alert alert-info">Logged in as: <strong>{{user.username}}</strong></div>
+
+        <h2 class="mb-4">My Shopping Lists</h2>
+
+        <div class="mb-3">
+          <a href="/lists/create" class="btn btn-primary">Create New List</a>
+        </div>
+
+        <div class="row">
+        {{#each favorites}}
+          <div class="col-md-6 mb-3">
+            <div class="card">
+              <div class="card-header bg-primary text-white">
+                <h5 class="card-title mb-0">{{this.name}}</h5>
+              </div>
+              <div class="card-body">
+                <p class="card-text">
+                  <strong>Item Count:</strong> <span class="badge bg-success">{{this.items.length}}</span>
+                </p>
+              </div>
+              <div class="card-footer bg-light">
+                <a href="/lists/{{this.id}}" class="btn btn-sm btn-primary">View</a>
+                <form method="post" action="/lists/{{this.id}}/delete" style="display:inline-block">
+                  <button class="btn btn-sm btn-danger">Delete</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+
+        <div class="card mt-4">
+          <div class="card-header">
+            <h5 class="card-title mb-0">All Lists</h5>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th>List Name</th>
+                  <th>Item Count</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each lists}}
+                <tr>
+                  <td>{{this.name}}</td>
+                  <td><span class="badge bg-info">{{this.items.length}}</span></td>
+                  <td>
+                    <a href="/lists/{{this.id}}" class="btn btn-sm btn-primary">View</a>
+                    <a href="/lists/{{this.id}}/edit" class="btn btn-sm btn-warning">Edit</a>
+                    <form method="post" action="/lists/{{this.id}}/delete" style="display:inline-block">
+                      <button class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

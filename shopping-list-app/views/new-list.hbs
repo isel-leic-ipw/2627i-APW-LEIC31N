@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Create New List</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="/">Shopping List</a>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/lists">My Lists</a></li>
+          <li class="nav-item">
+            <form method="post" action="/logout" style="display:inline-block">
+              <button class="nav-link btn btn-outline-light btn-sm ms-2" style="border:none">Logout</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container my-5">
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <div class="card">
+          <div class="card-header bg-primary text-white"><h5 class="mb-0">Create New Shopping List</h5></div>
+          <div class="card-body">
+            <form method="post" action="/lists/create">
+              <div class="mb-3">
+                <label for="listName" class="form-label">List Name:</label>
+                <input id="listName" name="name" class="form-control" placeholder="Enter list name" required>
+              </div>
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-primary">Create List</button>
+                <a href="/lists" class="btn btn-secondary">Cancel</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{list.name}}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="/">Shopping List</a>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/lists">My Lists</a></li>
+          <li class="nav-item">
+            <form method="post" action="/logout" style="display:inline-block">
+              <button class="nav-link btn btn-outline-light btn-sm ms-2" style="border:none">Logout</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container my-5">
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <nav aria-label="breadcrumb" class="mb-4">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/lists">My Lists</a></li>
+            <li class="breadcrumb-item active">{{list.name}}</li>
+          </ol>
+        </nav>
+
+        <div class="alert alert-info">Logged in as: <strong>{{user.username}}</strong></div>
+
+        <h2 class="mb-4">{{list.name}}</h2>
+
+        <div class="mb-3">
+          <a href="/lists" class="btn btn-secondary">Back to Lists</a>
+          <a href="/lists/{{list.id}}/edit" class="btn btn-warning">Edit List</a>
+        </div>
+
+        <div class="card mb-5">
+          <div class="card-header"><h5 class="mb-0">Items in this list</h5></div>
+          <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0">
+              <thead class="table-light"><tr><th>Item</th><th>Quantity</th><th>Status</th><th>Actions</th></tr></thead>
+              <tbody>
+                {{#each list.items}}
+                <tr>
+                  <td>{{this.name}}</td>
+                  <td>{{this.quantity}}</td>
+                  <td>
+                    {{#if this.bought}}
+                      <span class="badge bg-success">Bought</span>
+                    {{else}}
+                      <span class="badge bg-warning text-dark">Pending</span>
+                    {{/if}}
+                  </td>
+                  <td>
+                    <form method="post" action="/lists/{{../list.id}}/items/{{this.id}}/toggle" style="display:inline-block">
+                      <button class="btn btn-sm btn-secondary">Toggle</button>
+                    </form>
+                    <form method="post" action="/lists/{{../list.id}}/items/{{this.id}}/delete" style="display:inline-block">
+                      <button class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header bg-success text-white"><h5 class="mb-0">Add New Item</h5></div>
+          <div class="card-body">
+            <form method="post" action="/lists/{{list.id}}/items/create">
+              <div class="mb-3">
+                <label for="itemName" class="form-label">Item Name:</label>
+                <input id="itemName" name="name" class="form-control" required>
+              </div>
+              <div class="mb-3">
+                <label for="quantity" class="form-label">Quantity:</label>
+                <input id="quantity" name="quantity" type="number" min="1" class="form-control" required>
+              </div>
+              <div>
+                <button class="btn btn-success">Add Item</button>
+                <button type="reset" class="btn btn-secondary">Clear</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

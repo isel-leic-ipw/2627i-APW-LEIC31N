@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{#if list}}Edit List{{else}}Create New List{{/if}}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="/images/favicon.ico">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">Shopping List</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/lists">My Lists</a>
+                    </li>
+                    <li class="nav-item">
+                        <form method="post" action="/logout" style="display:inline-block">
+                            <button class="nav-link btn btn-outline-light btn-sm ms-2" style="border:none">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-5">
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <strong>Logged in as:</strong> <span class="badge bg-primary">{{user.username}}</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+
+                <h2 class="mb-4">{{#if list}}Edit List{{else}}Create New List{{/if}}</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <form method="post" action="{{#if list}}/lists/{{list.id}}/edit{{else}}/lists/create{{/if}}">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">List Name:</label>
+                                <input type="text" class="form-control" id="name" name="name" value="{{#if list}}{{list.name}}{{/if}}" required>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn {{#if list}}btn-primary{{else}}btn-success{{/if}}">
+                                    {{#if list}}Save Changes{{else}}Create List{{/if}}
+                                </button>
+                                <a href="{{#if list}}/lists/{{list.id}}{{else}}/lists{{/if}}" class="btn btn-secondary">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-light text-center py-4 mt-5">
+        <div class="container">
+            <p class="mb-0">&copy; 2026 Shopping List Management System</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // no client-side logic needed for now
+    </script>
+</body>
+</html>
