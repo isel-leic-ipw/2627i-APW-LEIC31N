@@ -1,10 +1,11 @@
 import express from 'express';
+import { getLists, createList, getList, updateList, deleteList, addListItem, deleteListItem, toggleListItem } from './api.js';
 
 const app = express()
 
 const port = 1904
 
-app.get('/', home)
+//app.get('/', home)
 
 const RESOURCES = {
   LISTS: '/lists',
@@ -13,6 +14,9 @@ const RESOURCES = {
   LIST_ITEM: '/lists/:listId/items/:itemId',
   LIST_ITEM_TOGGLE: '/lists/:listId/items/:itemId/toggle'
 }
+
+//app.use(myMiddleware)
+app.use(express.json())
 
 app.get(RESOURCES.LISTS, getLists)
 app.post(RESOURCES.LISTS, createList)
@@ -29,9 +33,15 @@ app.post(RESOURCES.LIST_ITEM_TOGGLE, toggleListItem)
 
 
 
-function home(req, res) {
-  res.send('Hello World!')
+function myMiddleware(req, rsp, next) {
+  console.log("Dummy middleware")
+  next()
+
 }
+
+function home(req, res) {
+}
+
 
 app.listen(port, (err) => {
     if (err) {

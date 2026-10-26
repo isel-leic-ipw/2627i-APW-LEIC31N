@@ -262,6 +262,9 @@ components:
               name:
                 type: string
                 minLength: 1
+              description:
+                type: string
+                minLength: 1
     ItemInput:
       required: true
       content:
