@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "node shopping-list-server.js",
+    "dev": "nodemon shopping-list-server.js"
   },
   "keywords": [],
   "author": "",
