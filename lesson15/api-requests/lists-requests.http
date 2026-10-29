@@ -17,6 +17,7 @@ GET http://localhost:1904/lists/dskjhfjksdhjfksdh
 ### Update a list
 PUT http://localhost:1904/lists/1
 Content-Type: application/json
+Authorization: Bearer 3209c1b9-50b7-43b6-967b-e0f1ce6ba186
 
 {
   "name": "Updated List",

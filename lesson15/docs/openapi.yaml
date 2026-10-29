@@ -6,10 +6,35 @@ info:
 servers:
   - url: /api
     description: Shopping List API base path
+security:
+  - bearerAuth: []
 tags:
+  - name: Users
+    description: User accounts
   - name: Lists
     description: Shopping lists and their items
 paths:
+  /users:
+    description: Collection of user accounts. Use this resource to create a new account.
+    post:
+      tags: [Users]
+      operationId: createUser
+      summary: Create a user
+      description: Creates a new user account.
+      security: []
+      requestBody:
+        $ref: '#/components/requestBodies/UserInput'
+      responses:
+        '201':
+          description: The created user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResult'
+        '400':
+          $ref: '#/components/responses/ApiError'
+        '409':
+          $ref: '#/components/responses/ApiError'
   /lists:
     description: Collection of shopping lists. Use this resource to retrieve all lists or create a new list.
     get:
@@ -178,6 +203,20 @@ paths:
           $ref: '#/components/responses/ApiError'
 components:
   schemas:
+    UserResult:
+      type: object
+      required: [id, username, token]
+      properties:
+        id:
+          type: integer
+          example: 1
+        username:
+          type: string
+          example: alex
+        token: 
+          type: string
+          format: uuid
+          example: 3209c1b9-50b7-43b6-967b-e0f1ce6ba186
     ShoppingList:
       type: object
       required: [id, name, items]
@@ -251,6 +290,17 @@ components:
       schema:
         type: integer
   requestBodies:
+    UserInput:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [username]
+            properties:
+              username:
+                type: string
+                minLength: 1
     ListInput:
       required: true
       content:

@@ -1,0 +1,7 @@
+### Create a user
+POST http://localhost:1904/users
+Content-Type: application/json
+
+{
+  "username": "user1"
+}

@@ -4,7 +4,7 @@ export default function (services) {
 
   async function getLists(req, res) {
     console.log(req.uri)
-    const lists = await shoppingListServices.getAllLists(req.query.q)
+    const lists = await services.getAllLists(req.user.userId, req.query.q)
 
     res.json(lists)
     // res.set("Content-Type", "application/json")
