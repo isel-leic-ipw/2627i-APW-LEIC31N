@@ -1,0 +1,42 @@
+
+### Get all lists
+GET http://localhost:1904/lists?q=Sport Lisboa e Benfica
+
+### Create a new list
+POST http://localhost:1904/lists
+Content-Type: application/json
+
+{
+  "name": "New List",
+  "description": "Description of the new list"
+}
+
+### Get List
+GET http://localhost:1904/lists/dskjhfjksdhjfksdh
+
+### Update a list
+PUT http://localhost:1904/lists/1
+Content-Type: application/json
+
+{
+  "name": "Updated List",
+  "description": "Updated description"
+}
+
+### Delete a list
+DELETE http://localhost:1904/lists/1
+
+### Add an item to a list
+POST http://localhost:1904/lists/1/items
+Content-Type: application/json
+
+{
+  "name": "Apples",
+  "quantity": 4
+}
+
+### Delete an item from a list
+DELETE http://localhost:1904/lists/1/items/2
+
+### Toggle an item's bought status
+POST http://localhost:1904/lists/1/items/2/toggle
