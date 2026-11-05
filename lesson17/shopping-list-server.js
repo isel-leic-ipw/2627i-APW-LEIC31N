@@ -5,6 +5,7 @@ import createShoppingListWebApi from './web/shopping-list-web-api.js';
 import createUsersWebApi from './web/users-web-api.js';
 import * as shoppingListData from './data/shopping-list-data-mem.js';
 import * as usersData from './data/users-data.js';
+import errorHandler from './web/http-errors.js';
 
 const shoppingListServices = createShoppingListServices(shoppingListData)
 const userServices = createUserServices(usersData)
@@ -29,6 +30,8 @@ const RESOURCES = {
 //app.use(myMiddleware)
 app.use(RESOURCES.LISTS,express.json())
 app.use(usersWebApi.tokenValidator)
+
+app.use(errorHandler)
 
 app.post(RESOURCES.USERS, usersWebApi.createUser)
 

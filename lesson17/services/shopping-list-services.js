@@ -1,4 +1,4 @@
-
+import { errors } from '../errors/errors.js';
 
 export default function (dataModule) {
     if (!dataModule) throw new Error("Data module is required");
@@ -17,17 +17,32 @@ export default function (dataModule) {
         return dataModule.getAllLists(userId, query);
     }
 
-    async function createList(userId) {}
+    async function createList(userId, name, description) {
+        validateUser(userId);
+        if(!name) throw errors.INVALID_PARAM("name", "List name is required");
+        return dataModule.createList(userId, name, description);
+    }
 
-    async function getList(userId) {}
+    async function getList(userId) {
+        validateUser(userId);
+    }
 
-    async function updateList(userId) {}
+    async function updateList(userId) {
+        validateUser(userId);
+    }
 
-    async function deleteList(userId) {}
+    async function deleteList(userId) {
+        validateUser(userId);
+    }
 
     async function addListItem(userId) {}
 
     async function deleteListItem(userId) {}
 
     async function toggleListItem(userId) {}
+
+
+    async function validateUser(userId) {
+        if (!userId) throw errors.INVALID_USER("User ID is required") 
+    }
 }

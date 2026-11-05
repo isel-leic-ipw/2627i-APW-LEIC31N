@@ -12,14 +12,15 @@ export default function (services) {
     //res.send(`Get all lists with query ${req.query.q}`)
   }
 
-  function createList(req, res) {
+  async function createList(req, res) {
     console.log("create list called")
     console.log('Content-Type header: ', req.get('Content-Type'))
     let {name, description } = req.body
-    // const name = req.body.name
-    // const description = req.body.description 
-    res.send(`Received request to create a list with name '${name}' and description '${description}' `)
+    services.createList(req.user.userId, name, description)
+      .then(list => res.json(list))
   }
+
+
 
   function getList(req, res) {
     res.send(`Received request to get a list with Id '${req.params.listId}'`)
