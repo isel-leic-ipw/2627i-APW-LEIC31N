@@ -1,11 +1,11 @@
 export async function getAllLists() {
-    return Promise.resolve([{
+    return [{
         name: "Sample List",
         description: "This is a sample list"
     }, {
         name: "Another List",
         description: "This is another sample list"  
-    }])
+    }]
 }
 
 export async function createList() {}

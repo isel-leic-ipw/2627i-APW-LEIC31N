@@ -1,7 +1,9 @@
 
 export const ERROR_CODES = {
-    INVALID_USER: 99,
-    INVALID_PARAM: 1523
+    INVALID_USER: 1,
+    INVALID_PARAM: 2,
+    NOT_FOUND: 3,
+    CONFLICT: 4
 }   
 
 
@@ -16,6 +18,18 @@ export default {
         return {
             code: ERROR_CODES.INVALID_PARAM,
             message: `Missing or invalid parameter: ${paramName}. ${msg}`,
+        }
+    },
+    NOT_FOUND: function(resource) {
+        return {
+            code: ERROR_CODES.NOT_FOUND,
+            message: `${resource} not found`
+        }
+    },
+    CONFLICT: function(msg) {
+        return {
+            code: ERROR_CODES.CONFLICT,
+            message: msg
         }
     }
 

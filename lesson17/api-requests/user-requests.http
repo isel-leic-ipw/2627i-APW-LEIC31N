@@ -1,7 +1,9 @@
+@baseUrl = http://localhost:1904
+
 ### Create a user
-POST http://localhost:1904/users
+POST {{baseUrl}}/users
 Content-Type: application/json
 
 {
-  "username": "user1"
+  "username": "apw-user-{{$guid}}"
 }

@@ -1,34 +1,40 @@
 
+@baseUrl = http://localhost:1904
+@token = 3209c1b9-50b7-43b6-967b-e0f1ce6ba186
+@listId = 1
+@itemId = 1
+
 ### Get all lists
-GET http://localhost:1904/lists?q=Sport Lisboa e Benfica
+GET {{baseUrl}}/lists?q=groceries
+Authorization: Bearer {{token}}
 
 ### Create a new list
-POST http://localhost:1904/lists
+POST {{baseUrl}}/lists
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "name": "New List",
-  "description": "Description of the new list"
+  "name": "Weekly groceries",
+  "description": "Food and household items"
 }
 
-### Get List
-GET http://localhost:1904/lists/dskjhfjksdhjfksdh
+### Get the created list
+GET {{baseUrl}}/lists/{{listId}}
+Authorization: Bearer {{token}}
 
-### Update a list
-PUT http://localhost:1904/lists/1
+### Update the created list
+PUT {{baseUrl}}/lists/{{listId}}
+Authorization: Bearer {{token}}
 Content-Type: application/json
-Authorization: Bearer 3209c1b9-50b7-43b6-967b-e0f1ce6ba186
 
 {
-  "name": "Updated List",
-  "description": "Updated description"
+  "name": "Updated groceries",
+  "description": "Updated list description"
 }
 
-### Delete a list
-DELETE http://localhost:1904/lists/1
-
-### Add an item to a list
-POST http://localhost:1904/lists/1/items
+### Add an item to the created list
+POST {{baseUrl}}/lists/{{listId}}/items
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -36,8 +42,14 @@ Content-Type: application/json
   "quantity": 4
 }
 
-### Delete an item from a list
-DELETE http://localhost:1904/lists/1/items/2
+### Toggle the item's bought status
+POST {{baseUrl}}/lists/{{listId}}/items/{{itemId}}/toggle
+Authorization: Bearer {{token}}
 
-### Toggle an item's bought status
-POST http://localhost:1904/lists/1/items/2/toggle
+### Delete the item
+DELETE {{baseUrl}}/lists/{{listId}}/items/{{itemId}}
+Authorization: Bearer {{token}}
+
+### Delete the list
+DELETE {{baseUrl}}/lists/{{listId}}
+Authorization: Bearer {{token}}

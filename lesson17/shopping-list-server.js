@@ -16,8 +16,6 @@ const app = express()
 
 const port = 1904
 
-//app.get('/', home)
-
 const RESOURCES = {
   USERS: '/users',
   LISTS: '/lists',
@@ -27,14 +25,11 @@ const RESOURCES = {
   LIST_ITEM_TOGGLE: '/lists/:listId/items/:itemId/toggle'
 }
 
-//app.use(myMiddleware)
-app.use(RESOURCES.LISTS,express.json())
-app.use(usersWebApi.tokenValidator)
-
-app.use(errorHandler)
+app.use(express.json())
 
 app.post(RESOURCES.USERS, usersWebApi.createUser)
 
+app.use(RESOURCES.LISTS, usersWebApi.tokenValidator)
 app.get(RESOURCES.LISTS, shoppingListWebApi.getLists)
 app.post(RESOURCES.LISTS, shoppingListWebApi.createList)
 
@@ -48,10 +43,7 @@ app.delete(RESOURCES.LIST_ITEM, shoppingListWebApi.deleteListItem)
 
 app.post(RESOURCES.LIST_ITEM_TOGGLE, shoppingListWebApi.toggleListItem)
 
-
-
-
-
+app.use(errorHandler)
 app.listen(port, (err) => {
     if (err) {
         console.error('Error starting server:', err)

@@ -3,53 +3,46 @@ export default function (services) {
   return { getLists, createList, getList, updateList, deleteList, addListItem, deleteListItem, toggleListItem } 
 
   async function getLists(req, res) {
-    console.log(req.uri)
-    const lists = await services.getAllLists(req.user.userId, req.query.q)
-
-    res.json(lists)
-    // res.set("Content-Type", "application/json")
-    // res.send(JSON.stringify(lists))
-    //res.send(`Get all lists with query ${req.query.q}`)
+    return services.getAllLists(req.user.userId, req.query.q)
+      .then(lists => res.json(lists))
   }
 
   async function createList(req, res) {
-    console.log("create list called")
-    console.log('Content-Type header: ', req.get('Content-Type'))
-    let {name, description } = req.body
-    services.createList(req.user.userId, name, description)
+    const { name, description } = req.body ?? {}
+    return services.createList(req.user.userId, name, description)
+      .then(list => res.status(201).json({ list }))
+  }
+
+  async function getList(req, res) {
+    return services.getList(req.user.userId, Number(req.params.listId))
       .then(list => res.json(list))
   }
 
-
-
-  function getList(req, res) {
-    res.send(`Received request to get a list with Id '${req.params.listId}'`)
+  async function updateList(req, res) {
+    const { name, description } = req.body ?? {}
+    return services.updateList(req.user.userId, Number(req.params.listId), name, description)
+      .then(list => res.json({ list }))
   }
 
-  function updateList(req, res) {
-    console.log("update list called")
-    console.log('Content-Type header: ', req.get('Content-Type'))
-    let { name, description } = req.body
-    res.send(`Received request to update list with Id '${req.params.listId}' with name '${name}' and description '${description}' `)
+  async function deleteList(req, res) {
+    return services.deleteList(req.user.userId, Number(req.params.listId))
+      .then(() => res.json({ status: 'Shopping list deleted' }))
   }
 
-  function deleteList(req, res) {
-    res.send(`Received request to delete a list with Id '${req.params.listId}'`)
+  async function addListItem(req, res) {
+    const { name, quantity } = req.body ?? {}
+    return services.addListItem(req.user.userId, Number(req.params.listId), name, quantity)
+      .then(item => res.status(201).json({ item }))
   }
 
-  function addListItem(req, res) {
-    console.log("add list item called")
-    console.log('Content-Type header: ', req.get('Content-Type'))
-    let { name, quantity } = req.body
-    res.send(`Received request to add item '${name}' with quantity '${quantity}' to list with Id '${req.params.listId}' `)
+  async function deleteListItem(req, res) {
+    return services.deleteListItem(req.user.userId, Number(req.params.listId), Number(req.params.itemId))
+      .then(() => res.json({ status: 'Shopping-list item deleted' }))
   }
 
-  function deleteListItem(req, res) {
-    res.send(`Received request to delete item with Id '${req.params.itemId}' from list with Id '${req.params.listId}'`)
-  }
-
-  function toggleListItem(req, res) {
-    res.send(`Received request to toggle item with Id '${req.params.itemId}' in list with Id '${req.params.listId}'`)
+  async function toggleListItem(req, res) {
+    return services.toggleListItem(req.user.userId, Number(req.params.listId), Number(req.params.itemId))
+      .then(item => res.json({ item }))
   }
 } 
 
