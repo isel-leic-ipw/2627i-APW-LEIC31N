@@ -109,3 +109,5 @@ META-INF
 *.class
 
 PrevSemester
+# Cached API responses (may contain API keys)
+cache.json
