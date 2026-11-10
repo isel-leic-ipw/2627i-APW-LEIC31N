@@ -7,43 +7,23 @@ import * as shoppingListData from './data/shopping-list-data-mem.js';
 import * as usersData from './data/users-data.js';
 import errorHandler from './web/http-errors.js';
 
+const app = express()
+
 const shoppingListServices = createShoppingListServices(shoppingListData)
 const userServices = createUserServices(usersData)
-const shoppingListWebApi = createShoppingListWebApi(shoppingListServices)     
-const usersWebApi = createUsersWebApi(userServices)
+const shoppingListWebApiRouter = createShoppingListWebApi(shoppingListServices, app)     
+const usersWebApiRouter = createUsersWebApi(userServices)
+errorHandler(app)
 
-const app = express()
 
 const port = 1904
 
-const RESOURCES = {
-  USERS: '/users',
-  LISTS: '/lists',
-  LIST: '/lists/:listId',
-  LIST_ITEMS: '/lists/:listId/items',
-  LIST_ITEM: '/lists/:listId/items/:itemId',
-  LIST_ITEM_TOGGLE: '/lists/:listId/items/:itemId/toggle'
-}
-
 app.use(express.json())
 
-app.post(RESOURCES.USERS, usersWebApi.createUser)
+app.use('/api/v1', shoppingListWebApiRouter)
+app.use('/api/v1', usersWebApiRouter)
 
-app.use(RESOURCES.LISTS, usersWebApi.tokenValidator)
-app.get(RESOURCES.LISTS, shoppingListWebApi.getLists)
-app.post(RESOURCES.LISTS, shoppingListWebApi.createList)
 
-app.get(RESOURCES.LIST, shoppingListWebApi.getList)
-app.put(RESOURCES.LIST, shoppingListWebApi.updateList)
-app.delete(RESOURCES.LIST, shoppingListWebApi.deleteList)
-
-app.post(RESOURCES.LIST_ITEMS, shoppingListWebApi.addListItem)
-
-app.delete(RESOURCES.LIST_ITEM, shoppingListWebApi.deleteListItem)
-
-app.post(RESOURCES.LIST_ITEM_TOGGLE, shoppingListWebApi.toggleListItem)
-
-app.use(errorHandler)
 app.listen(port, (err) => {
     if (err) {
         console.error('Error starting server:', err)

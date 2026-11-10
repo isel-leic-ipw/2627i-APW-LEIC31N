@@ -1,4 +1,4 @@
-@baseUrl = http://localhost:1904
+@baseUrl = http://localhost:1904/api/v1
 
 ### Create a user
 POST {{baseUrl}}/users

@@ -1,11 +1,11 @@
 
-@baseUrl = http://localhost:1904
+@baseUrl = http://localhost:1904/api/v1
 @token = 3209c1b9-50b7-43b6-967b-e0f1ce6ba186
-@listId = 1
+@listId = 6
 @itemId = 1
 
 ### Get all lists
-GET {{baseUrl}}/lists?q=groceries
+GET {{baseUrl}}/lists
 Authorization: Bearer {{token}}
 
 ### Create a new list
@@ -14,8 +14,8 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "name": "Weekly groceries",
-  "description": "Food and household items"
+  "name": "Bricolage needs",
+  "description": "Buy a hammer"
 }
 
 ### Get the created list

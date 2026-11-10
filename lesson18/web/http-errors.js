@@ -46,8 +46,13 @@ function toHttpError(err) {
     return errorMapper(err)
 }
 
-export default function errorHandler(err, req, res, next) {
-    if (res.headersSent || !err || !err.code) return next(err)
-    const mappedError = toHttpError(err)
-    res.status(mappedError.status).json(mappedError.body)
+export default function (app) {
+    app.use(errorHandler)
+
+    function errorHandler(err, req, res, next) {
+        if (res.headersSent || !err || !err.code) return next(err)
+        const mappedError = toHttpError(err)
+        res.status(mappedError.status).json(mappedError.body)
+    }
 }
+
