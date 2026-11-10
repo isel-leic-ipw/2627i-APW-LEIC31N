@@ -1,0 +1,55 @@
+
+@baseUrl = http://localhost:1904
+@token = 3209c1b9-50b7-43b6-967b-e0f1ce6ba186
+@listId = 1
+@itemId = 1
+
+### Get all lists
+GET {{baseUrl}}/lists?q=groceries
+Authorization: Bearer {{token}}
+
+### Create a new list
+POST {{baseUrl}}/lists
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Weekly groceries",
+  "description": "Food and household items"
+}
+
+### Get the created list
+GET {{baseUrl}}/lists/{{listId}}
+Authorization: Bearer {{token}}
+
+### Update the created list
+PUT {{baseUrl}}/lists/{{listId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Updated groceries",
+  "description": "Updated list description"
+}
+
+### Add an item to the created list
+POST {{baseUrl}}/lists/{{listId}}/items
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Apples",
+  "quantity": 4
+}
+
+### Toggle the item's bought status
+POST {{baseUrl}}/lists/{{listId}}/items/{{itemId}}/toggle
+Authorization: Bearer {{token}}
+
+### Delete the item
+DELETE {{baseUrl}}/lists/{{listId}}/items/{{itemId}}
+Authorization: Bearer {{token}}
+
+### Delete the list
+DELETE {{baseUrl}}/lists/{{listId}}
+Authorization: Bearer {{token}}
