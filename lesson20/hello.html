@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello World</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        p.important {
+            color: red;
+        }
+
+        p[class^=imp] {
+          color: orange;
+        }
+        li:nth-child(odd) {
+            background-color: lightgray;
+        
+          }
+        li:nth-child(even) {
+            background-color: darkgray;
+        
+          }
+
+
+    </style>
+  </head>
+  <body>
+    <div class="emphasis">
+        <h1>Hello World</h1>
+        <p class="important">This is a <br>  web page. <span class="emphasis">It content is</span> <span>very important</span></p>
+    </div>
+    <hr>
+    <p><span class="emphasis">Another</span> paragraph.</p>
+    <img src="https://result-sports.com/wp-content/uploads/clients-58.jpg" alt="An image">
+
+
+    <ul>
+      <li>...</li>
+      <li>...</li>
+      <li>This list item will be selected</li>
+      <li>...</li>
+      <li>...</li>
+      <li>This list item will be selected</li>
+    </ul>
+  </body>
+</html>

@@ -1,20 +1,21 @@
 p.important {
-        color: orange;    
-    }
+    color: orange;
+}
 
-    p {
-        font-size: 40px;
-    }
+p {
+    font-size: 40px;
+}
 
-    p {
-        color: blue;
-        font-family: 'Courier New', Courier, monospace;
-        font-size: 25px;
-    }
+p {
+    color: blue;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 25px;
+}
 
-    .emphasis {
-        font-weight: bold;
-    }   
-    * {
+.emphasis {
+    font-weight: bold;
+}
+
+* {
     border: 1px dashed black;
-    }
+}
